@@ -1,0 +1,96 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>{{setting.site_title}}</title>
+<meta name="Keywords" content="{{setting.site_keywords}}" />
+<meta name="Description" content="{{setting.site_description}}" />
+<link rel="stylesheet" type="text/css" href="default/css/reset.css" />
+<link rel="stylesheet" type="text/css" href="default/css/common.css" />
+<link rel="stylesheet" type="text/css" href="default/css/heder_nav-menu.css"/>
+<link rel="stylesheet" type="text/css" href="default/css/successful_case.css"/>
+<link rel="stylesheet" type="text/css" href="default/css/bootstrap.min.css"/>
+</head>
+
+<body>
+{{include 'default/public/header.html'}}
+<div id="header_nav-wrapper">
+    <div class="header_nav">
+    	<h2>成功案例 &#160; <span>用心给客户书写出一次次满意的答卷，创造有价值的产品
+APP开发</span></h2>
+    
+    
+    </div>
+
+
+
+</div>
+
+<div id="header_title-wrapper">
+    <div class="header_title clear">
+        <p>
+					{{each cateList}}
+        <a href="/case?pid={{@$value._id}}" {{if pid == $value._id}}style="color:#ff6700" {{/if}}>{{$value.title}}</a>
+					{{/each}}
+        </p>
+    </div>
+
+</div>
+
+
+<div id="main_wrapper">
+    <div class="main">
+	    <ul class="clear">
+				{{each articleList}}
+		    <li>
+		    		<a href="content/{{@$value._id}}"><img src="{{$value.img_url}}" /></a>
+		    		<p>{{$value.title}}</p>
+		    </li>
+				{{/each}}
+	    </ul>
+			<div id="page" class="pagination"></div>
+    </div>
+</div>
+
+
+
+<div id="footer-wrapper">
+            <div class="footer-inner">
+                <p>
+                    <a href="#">网站首页</a>&nbsp;&nbsp;|&nbsp;
+                    <a href="#">关于我们</a>&nbsp;&nbsp;|&nbsp;
+                    <a href="#">产品展示</a>&nbsp;&nbsp;|&nbsp;
+                    <a href="#">客户案例</a>&nbsp;&nbsp;|&nbsp;
+                    <a href="#">新闻资讯</a>&nbsp;&nbsp;|&nbsp;
+                    <a href="#">帮助中心</a>&nbsp;&nbsp;|&nbsp;
+                    <a href="#">解决方案</a>&nbsp;&nbsp;|&nbsp;
+                    <a href="#">联系我们</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                </p>
+                <p>Copyright © 2002-2015上海机械设备服务有限公司 版权所有 Power by DedeCms</p>
+                <p>电话：15918779820 E-mail：89898981@qq.com 地址：上海市沙河广园东路1858新天地服装城</p>
+            </div>
+</div>
+
+<script src="/default/js/jquery-2.0.3.min.js"></script>
+<script src="/default/js/jqPaginator.js"></script>
+<script>
+  $('#page').jqPaginator({
+    totalPages: {{totalPages}},
+	  visiblePages: 4,
+    currentPage: {{page}},
+  onPageChange: function (num, type) {
+				if(type == 'change'){
+					//判断是从哪里跳转的
+					//1.从分类跳转，不需要传入pid
+					//2.从分页跳转需要传入pid
+					{{if pid}}
+          		location.href = '/case?pid={{pid}}&page='+num
+					{{else}}
+          		location.href = '/case?page='+num
+					{{/if}}
+				}
+  }
+  })
+</script>
+</body>
+</html>
